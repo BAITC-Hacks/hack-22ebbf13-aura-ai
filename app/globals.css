@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html { background: #0F1420; -webkit-tap-highlight-color: transparent; }
+body { @apply bg-ink font-sans text-fg antialiased; }
+
+:focus-visible { outline: 2px solid #F2B63D; outline-offset: 2px; border-radius: 4px; }
+
+@layer utilities {
+  .tabular { font-variant-numeric: tabular-nums; }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}
+
+/* Отрывной талон: перфорация + полукруглые вырезы по краям */
+.stub {
+  position: relative;
+  border-left: 2px dashed theme("colors.line");
+}
+.stub::before,
+.stub::after {
+  content: "";
+  position: absolute;
+  left: -9px;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: theme("colors.ink");
+  border: 1px solid theme("colors.line");
+}
+.stub::before { top: -9px; }
+.stub::after { bottom: -9px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
